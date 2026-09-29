@@ -2,7 +2,7 @@ from ads_intelligence.csv_loader import parse_number
 from ads_intelligence.metrics import aggregate, group_by_campaign
 from ads_intelligence.models import CampaignRow, SearchTermRow
 from ads_intelligence.ngram import analyze_ngrams, wilson_upper
-from ads_intelligence.intent import IntentRules, classify_intent
+from ads_intelligence.intent import IntentRules, classify_intent, load_rules
 
 def test_number_locales():
     assert parse_number("1,234.50")==1234.5
@@ -16,9 +16,17 @@ def test_metrics():
     assert group_by_campaign(rows)["Search"].cost==750
 
 def test_intent():
-    r=IntentRules(["transactional","research"],{"transactional":[r"\bfiyat\b"],"research":[r"\bnasıl\b"]})
-    assert classify_intent("boks kursu fiyat",r)=="transactional"
-    assert classify_intent("boks nasıl yapılır",r)=="research"
+    rules=IntentRules(
+        ["transactional","research"],
+        {"transactional":["fiyat"],"research":["nasıl"]},
+    )
+    assert classify_intent("boks kursu fiyat",rules)=="transactional"
+    assert classify_intent("boks nasıl yapılır",rules)=="research"
+
+def test_default_rules_file():
+    rules=load_rules("rules/default.json")
+    assert classify_intent("boks kursu fiyat",rules)=="transactional"
+    assert classify_intent("boks nasıl yapılır",rules)=="research"
 
 def test_statistical_zero_and_collision():
     rows=[
