@@ -16,7 +16,7 @@ def test_metrics():
     assert group_by_campaign(rows)["Search"].cost==750
 
 def test_intent():
-    r=IntentRules(["transactional","research"],{"transactional":[r"\\bfiyat\\b"],"research":[r"\\bnasıl\\b"]})
+    r=IntentRules(["transactional","research"],{"transactional":[r"\bfiyat\b"],"research":[r"\bnasıl\b"]})
     assert classify_intent("boks kursu fiyat",r)=="transactional"
     assert classify_intent("boks nasıl yapılır",r)=="research"
 
