@@ -1,0 +1,12 @@
+{
+  "priority": ["transactional","location","comparison","research","employment","freebie"],
+  "fallback": "other",
+  "patterns": {
+    "transactional": ["\\b(price|pricing|book|booking|buy|quote|course|class|lesson|fiyat|ücret|ucret|kayıt|kayit|randevu|kurs|ders)\\b"],
+    "location": ["\\b(near me|nearby|yakınımda|yakinimda|yakınında|yakininda)\\b"],
+    "comparison": ["\\b(best|top|review|reviews|compare|comparison|en iyi|yorum|yorumlar|karşılaştır|karsilastir)\\b"],
+    "research": ["\\b(what is|how to|guide|tutorial|nedir|nasıl|nasil|faydaları|faydalari|teknik)\\b"],
+    "employment": ["\\b(job|jobs|career|salary|hiring|iş ilanı|is ilani|maaş|maas|kariyer)\\b"],
+    "freebie": ["\\b(free|gratis|ücretsiz|ucretsiz|bedava)\\b"]
+  }
+}
